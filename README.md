@@ -9,7 +9,7 @@ The repository operates on prepared paired images and includes training, reconst
 Python 3.10 or newer is required. Create an isolated environment and install the package with its test tools:
 
 ```bash
-python3.12 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements-dev.txt

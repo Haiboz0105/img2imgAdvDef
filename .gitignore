@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments and local configuration
+.venv/
+venv/
+env/
+.env
+.env.*
+local_config.yaml
+*_local.yaml
+
+# Editors and notebooks
+.DS_Store
+._*
+.idea/
+.vscode/
+.ipynb_checkpoints/
+
+# Data and generated artifacts
+data/
+datasets/
+outputs/
+results/
+runs/
+wandb/
+logs/
+tensorboard/
+checkpoints/
+training_checkpoints*/
+events.out.tfevents*
+*.ckpt
+*.h5
+*.pt
+*.pth
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.log
+
+# Generated plots and notebook output exports
+figures/
+train_progress*/
+training_progress*/

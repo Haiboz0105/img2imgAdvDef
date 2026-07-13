@@ -1,0 +1,66 @@
+# Default residual pix2pix defense configuration.
+
+random_seed: 42
+dataset_name: imagenet_adversarial_pairs
+dataset_path: null  # Set this in a Git-ignored local configuration.
+output_dir: outputs
+train_split: train
+validation_split: val
+test_split: test
+file_extensions: [".png", ".jpg", ".jpeg"]
+
+device: auto
+batch_size: 1
+num_epochs: 150
+num_workers: 0
+weight_decay: 0.0
+checkpoint_every: 10
+
+learning_rate: 0.0002
+generator_learning_rate: 0.0002
+discriminator_learning_rate: 0.0002
+adam_beta1: 0.5
+adam_beta2: 0.999
+adam_epsilon: 1.0e-7  # Keras Adam default; PyTorch's default is 1e-8.
+
+image_size: 256
+jitter_size: 286
+input_channels: 3
+output_channels: 3
+shuffle_buffer: 400  # documented legacy value; PyTorch DataLoader uses shuffle=true.
+
+model:
+  generator_type: residual_unet
+  base_channels: 64
+  max_channels: 512
+  num_down_blocks: 8
+  residual_layers_per_block: 7
+  dropout_blocks: 3
+  discriminator_type: patchgan
+  discriminator_residual_blocks: true  # Primary notebook uses residual down-blocks here too.
+  leaky_relu_slope: 0.3  # Keras LeakyReLU() default used without an explicit alpha.
+  batchnorm_epsilon: 1.0e-3  # Keras BatchNormalization default.
+  # Keras momentum=0.99 weights old state; PyTorch momentum weights new state.
+  batchnorm_pytorch_momentum: 0.01
+
+loss:
+  lambda_l1: 100.0
+  lambda_gan: 1.0
+  lambda_perceptual: 1.0
+  use_perceptual_loss: true
+  perceptual_loss:
+    enabled: true
+    network: vgg19
+    pretrained: true
+    preprocessing: keras_vgg19
+    input_range: [-1, 1]
+    layers: [3, 4, 6, 8, 9, 11, 13, 15, 17, 18, 20, 22, 24, 26, 27, 29, 31, 33, 35]
+    layer_weights: [19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+augmentation:
+  random_jitter: true
+  random_horizontal_flip: true
+
+evaluation:
+  data_range: 2.0  # tensors are normalized to [-1, 1]
+  ssim_variant: tensorflow_windowed

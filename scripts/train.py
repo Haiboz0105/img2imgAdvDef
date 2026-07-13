@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train the provisional residual pix2pix model from a YAML configuration."""
+"""Train the residual pix2pix model from a YAML configuration."""
 
 from __future__ import annotations
 
